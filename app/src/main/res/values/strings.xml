@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">P1.6ReadBooks</string>
+    <string-array name="status">
+        <item>Want to read</item>
+        <item>Reading</item>
+        <item>Read</item>
+    </string-array>
+    <string name="updateButtonText">UPDATE</string>
+</resources>
