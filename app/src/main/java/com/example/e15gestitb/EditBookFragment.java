@@ -19,13 +19,13 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
-public class MissedAttendanceFragment extends Fragment {
+public class EditBookFragment extends Fragment {
     static Spinner statusList;
     EditText bookTitle;
     EditText author;
     RatingBar stars;
     Button addButton;
-    MissedAttendanceModel recover;
+    Book recover;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,8 +45,8 @@ public class MissedAttendanceFragment extends Fragment {
         addButton = view.findViewById(R.id.addButton);
         if (MainActivity.isUpdating && getArguments() != null) {
             addButton.setText(R.string.updateButtonText);
-            recover = MissedAttendanceListFragmentArgs.fromBundle(getArguments()).getMissedAttendanceModel();
-            positionInList = MissedAttendanceListFragmentArgs.fromBundle(getArguments()).getPosition();
+            recover = BooksListArgs.fromBundle(getArguments()).getBook();
+            positionInList = BooksListArgs.fromBundle(getArguments()).getPosition();
             assert recover != null;
             bookTitle.setText(recover.getTitle());
             author.setText(recover.getAuthor());
@@ -60,14 +60,14 @@ public class MissedAttendanceFragment extends Fragment {
             public void onClick(final View v) {
                 if (!(bookTitle.getText().toString().equals("") || author.getText().toString().equals(""))) {
 
-                    final MissedAttendanceModel result = new MissedAttendanceModel(bookTitle.getText().toString(), author.getText().toString(), statusList.getSelectedItem().toString(), stars.getRating());
+                    final Book result = new Book(bookTitle.getText().toString(), author.getText().toString(), statusList.getSelectedItem().toString(), stars.getRating());
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setMessage("Book  new info: " + result.toString())
                             .setTitle("Are you sure that you want to update this book?")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
 
-                                    NavDirections directions = MissedAttendanceFragmentDirections.actionMissedAttendanceFragmentToMissedAttendanceListFragment3().setMissedAttendanceModel(result).setPosition(finalPosition);
+                                    NavDirections directions = EditBookFragmentDirections.bookToList().setBook(result).setPosition(finalPosition);
                                     Navigation.findNavController(v).navigate(directions);
                                     bookTitle.setText("");
                                     author.setText("");

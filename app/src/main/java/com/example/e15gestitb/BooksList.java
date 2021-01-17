@@ -19,16 +19,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import static com.example.e15gestitb.MainActivity.isReturningFromOtherFragment;
 
-public class MissedAttendanceListFragment extends Fragment {
+public class BooksList extends Fragment {
     RecyclerView recyclerView;
-    MissedAttendanceViewModel missedAttendanceViewModel;
+    BooksViewModel booksViewModel;
     FloatingActionButton addButton;
-    MissedAttendanceAdapter adapter;
+    BookAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        missedAttendanceViewModel = new ViewModelProvider(this).get(MissedAttendanceViewModel.class);
+        booksViewModel = new ViewModelProvider(this).get(BooksViewModel.class);
 
     }
 
@@ -40,23 +40,23 @@ public class MissedAttendanceListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (getArguments() != null) {
             if (isReturningFromOtherFragment) {
-                MissedAttendanceModel recover;
-                recover = MissedAttendanceListFragmentArgs.fromBundle(getArguments()).getMissedAttendanceModel();
+                Book recover;
+                recover = BooksListArgs.fromBundle(getArguments()).getBook();
                 if (recover != null) {
                     if (MainActivity.isUpdating) {
-                        int position = MissedAttendanceListFragmentArgs.fromBundle(getArguments()).getPosition();
+                        int position = BooksListArgs.fromBundle(getArguments()).getPosition();
                         if (position != -1)
-                            missedAttendanceViewModel.listOfModels.set(position, recover);
+                            booksViewModel.listOfModels.set(position, recover);
                         MainActivity.isUpdating = false;
                     } else {
-                        missedAttendanceViewModel.listOfModels.add(recover);
+                        booksViewModel.listOfModels.add(recover);
                         Toast.makeText(getContext(), recover.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
                 isReturningFromOtherFragment = false;
             }
         }
-        adapter = new MissedAttendanceAdapter(missedAttendanceViewModel.listOfModels);
+        adapter = new BookAdapter(booksViewModel.listOfModels);
         recyclerView.setAdapter(adapter);
         addButton = view.findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +64,7 @@ public class MissedAttendanceListFragment extends Fragment {
             public void onClick(View v) {
                 isReturningFromOtherFragment = true;
                 MainActivity.isUpdating = false;
-                NavDirections directions = MissedAttendanceListFragmentDirections.actionListToFragment().setMissedAttendanceModel(missedAttendanceViewModel.listOfModels.get(0)).setPosition(-1);
+                NavDirections directions = BooksListDirections.bookListToFragment();
                 Navigation.findNavController(v).navigate(directions);
             }
         });

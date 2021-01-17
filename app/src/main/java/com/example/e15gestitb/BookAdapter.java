@@ -15,11 +15,11 @@ import java.util.List;
 
 import static com.example.e15gestitb.MainActivity.isReturningFromOtherFragment;
 
-public class MissedAttendanceAdapter extends RecyclerView.Adapter<MissedAttendanceAdapter.MissedAttendanceViewHolder> {
-    static List<MissedAttendanceModel> missedAttendanceModels;
+public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MissedAttendanceViewHolder> {
+    static List<Book> books;
 
-    public MissedAttendanceAdapter(List<MissedAttendanceModel> missedAttendanceModels) {
-        MissedAttendanceAdapter.missedAttendanceModels = missedAttendanceModels;
+    public BookAdapter(List<Book> books) {
+        BookAdapter.books = books;
         notifyDataSetChanged();
     }
 
@@ -33,12 +33,12 @@ public class MissedAttendanceAdapter extends RecyclerView.Adapter<MissedAttendan
 
     @Override
     public void onBindViewHolder(@NonNull MissedAttendanceViewHolder holder, int position) {
-        holder.bindData(missedAttendanceModels.get(position));
+        holder.bindData(books.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return missedAttendanceModels.size();
+        return books.size();
     }
 
     static class MissedAttendanceViewHolder extends RecyclerView.ViewHolder {
@@ -62,7 +62,7 @@ public class MissedAttendanceAdapter extends RecyclerView.Adapter<MissedAttendan
                 public void onClick(View v) {
                     MainActivity.isUpdating = true;
                     isReturningFromOtherFragment = true;
-                    NavDirections directions = MissedAttendanceListFragmentDirections.actionListToFragment().setMissedAttendanceModel((missedAttendanceModels.get(getAdapterPosition()))).setPosition(getAdapterPosition());
+                    NavDirections directions = BooksListDirections.bookListToFragment().setBook(books.get(getAdapterPosition())).setPosition(getAdapterPosition());
 
                     System.out.println("AdapterPosition " + getAdapterPosition());
                     Navigation.findNavController(v).navigate(directions);
@@ -70,12 +70,12 @@ public class MissedAttendanceAdapter extends RecyclerView.Adapter<MissedAttendan
             });
         }
 
-        public void bindData(MissedAttendanceModel missedAttendanceModel) {
-            bookTitle.setText(missedAttendanceModel.getTitle());
-            author.setText(missedAttendanceModel.getAuthor());
-            bookStatus.setText(missedAttendanceModel.getStatus());
+        public void bindData(Book book) {
+            bookTitle.setText(book.getTitle());
+            author.setText(book.getAuthor());
+            bookStatus.setText(book.getStatus());
 
-            stars.setRating(missedAttendanceModel.getNumberOfStars());
+            stars.setRating(book.getNumberOfStars());
         }
     }
 }

@@ -3,16 +3,16 @@ package com.example.e15gestitb;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class MissedAttendanceModel implements Parcelable {
-    public static final Creator<MissedAttendanceModel> CREATOR = new Creator<MissedAttendanceModel>() {
+public class Book implements Parcelable {
+    public static final Creator<Book> CREATOR = new Creator<Book>() {
         @Override
-        public MissedAttendanceModel createFromParcel(Parcel in) {
-            return new MissedAttendanceModel(in);
+        public Book createFromParcel(Parcel in) {
+            return new Book(in);
         }
 
         @Override
-        public MissedAttendanceModel[] newArray(int size) {
-            return new MissedAttendanceModel[size];
+        public Book[] newArray(int size) {
+            return new Book[size];
         }
     };
     String title;
@@ -20,21 +20,21 @@ public class MissedAttendanceModel implements Parcelable {
     String status;
     float numberOfStars;
 
-    public MissedAttendanceModel(String title, String author, String status, float numberOfStars) {
+    public Book(String title, String author, String status, float numberOfStars) {
         this.title = title;
         this.author = author;
         this.status = status;
         this.numberOfStars = numberOfStars;
     }
 
-    protected MissedAttendanceModel(Parcel in) {
+    protected Book(Parcel in) {
         title = in.readString();
         author = in.readString();
         status = in.readString();
         numberOfStars = in.readFloat();
     }
 
-    public static Creator<MissedAttendanceModel> getCREATOR() {
+    public static Creator<Book> getCREATOR() {
         return CREATOR;
     }
 

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_graph"
-    app:startDestination="@id/missedAttendanceListFragment">
+    app:startDestination="@id/bookList">
 
     <fragment
-        android:id="@+id/missedAttendanceListFragment"
-        android:name="com.example.e15gestitb.MissedAttendanceListFragment"
-        android:label="MissedAttendanceListFragment" >
+        android:id="@+id/bookList"
+        android:name="com.example.e15gestitb.BooksList"
+        android:label="BookList" >
         <argument
-            android:name="missedAttendanceModel"
-            app:argType="com.example.e15gestitb.MissedAttendanceModel"
+            android:name="book"
+            app:argType="com.example.e15gestitb.Book"
             app:nullable="true"
-
             android:defaultValue="@null"
           />
         <argument
@@ -20,18 +19,18 @@
             android:defaultValue="-1"
            />
         <action
-            android:id="@+id/action_list_to_fragment"
-            app:destination="@id/missedAttendanceFragment"
+            android:id="@+id/book_list_to_fragment"
+            app:destination="@id/book"
             app:enterAnim="@anim/fragment_fade_enter" />
 
     </fragment>
     <fragment
-        android:id="@+id/missedAttendanceFragment"
-        android:name="com.example.e15gestitb.MissedAttendanceFragment"
-        android:label="MissedAttendanceFragment" >
+        android:id="@+id/book"
+        android:name="com.example.e15gestitb.EditBookFragment"
+        android:label="Book" >
         <argument
-            android:name="missedAttendanceModel"
-            app:argType="com.example.e15gestitb.MissedAttendanceModel"
+            android:name="book"
+            app:argType="com.example.e15gestitb.Book"
             app:nullable="true"
             android:defaultValue="@null" />
         <argument
@@ -40,8 +39,8 @@
             android:defaultValue="-1" />
 
         <action
-            android:id="@+id/action_missedAttendanceFragment_to_missedAttendanceListFragment3"
-            app:destination="@id/missedAttendanceListFragment" />
+            android:id="@+id/bookToList"
+            app:destination="@id/bookList" />
 
     </fragment>
 
